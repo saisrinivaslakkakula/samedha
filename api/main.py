@@ -35,13 +35,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Protect the /mcp endpoint with the same bearer token used by the REST API
+# Protect the /mcp endpoint with the same bearer token used by the REST API.
+# Accepts either:
+#   Authorization: Bearer <key>   (Claude Code CLI / MCP clients)
+#   ?key=<key>                    (claude.ai browser connector — no custom header support)
 @app.middleware("http")
 async def mcp_auth(request: Request, call_next):
     if request.url.path.startswith("/mcp"):
-        auth = request.headers.get("Authorization", "")
-        expected = f"Bearer {os.getenv('SECOND_BRAIN_API_KEY', '')}"
-        if auth != expected:
+        expected = os.getenv("SECOND_BRAIN_API_KEY", "")
+        bearer = request.headers.get("Authorization", "").removeprefix("Bearer ").strip()
+        query_key = request.query_params.get("key", "")
+        if bearer != expected and query_key != expected:
             return JSONResponse({"detail": "Unauthorized"}, status_code=401)
     return await call_next(request)
 
