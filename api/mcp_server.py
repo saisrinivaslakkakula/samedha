@@ -5,8 +5,10 @@ from services.embeddings import generate_embedding
 from services.search import semantic_search, get_recent
 from db.supabase import get_client
 
-# streamable_http_path="/" so that when mounted at /mcp the endpoint is /mcp (not /mcp/mcp)
-mcp = FastMCP("second-brain", streamable_http_path="/")
+# host="0.0.0.0" disables FastMCP's localhost-only DNS rebinding protection,
+# which would otherwise reject requests from samedha.onrender.com with HTTP 421.
+# streamable_http_path="/" so mounting at /mcp yields /mcp/ (not /mcp/mcp/).
+mcp = FastMCP("second-brain", host="0.0.0.0", streamable_http_path="/")
 
 
 @mcp.tool()
