@@ -11,8 +11,10 @@ async def semantic_search(
 ) -> list[dict]:
     embedding = await generate_embedding(query)
     client = get_client()
-    # Calls the match_memories RPC function defined in schema.sql
-    params: dict = {"query_embedding": embedding, "match_count": limit}
+    # pgvector requires the vector as a bracketed string e.g. "[0.1, 0.2, ...]"
+    # supabase-py does not auto-serialize Python lists to the vector type
+    embedding_str = "[" + ",".join(str(x) for x in embedding) + "]"
+    params: dict = {"query_embedding": embedding_str, "match_count": limit}
     if domain:
         params["filter_domain"] = domain
     if source:

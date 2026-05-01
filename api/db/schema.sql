@@ -19,10 +19,11 @@ create table if not exists memories (
   metadata     jsonb default '{}'
 );
 
--- Cosine similarity index for fast semantic search
+-- HNSW index for cosine similarity search.
+-- Works correctly at any dataset size (unlike ivfflat which needs many rows).
+-- For datasets > 100k rows consider tuning m and ef_construction.
 create index if not exists memories_embedding_idx
-  on memories using ivfflat (embedding vector_cosine_ops)
-  with (lists = 100);
+  on memories using hnsw (embedding vector_cosine_ops);
 
 -- Keep updated_at in sync automatically
 create or replace function update_updated_at()

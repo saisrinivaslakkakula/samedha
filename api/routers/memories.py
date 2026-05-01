@@ -9,7 +9,7 @@ from auth import verify_api_key
 router = APIRouter(prefix="/memories", tags=["memories"], dependencies=[Depends(verify_api_key)])
 
 
-@router.post("/", status_code=201)
+@router.post("", status_code=201)
 async def save_memory(payload: MemoryCreate):
     vector = await emb_service.generate_embedding(payload.content)
     client = get_client()
