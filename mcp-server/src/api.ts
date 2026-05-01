@@ -1,4 +1,5 @@
 import "dotenv/config";
+import fetch from "node-fetch";
 
 const BASE_URL = process.env.SECOND_BRAIN_API_URL ?? "http://localhost:8000/api/v1";
 const API_KEY = process.env.SECOND_BRAIN_API_KEY ?? "";
