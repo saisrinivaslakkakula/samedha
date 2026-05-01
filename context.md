@@ -110,18 +110,19 @@ SaMedha/
 
 ## Build Phases
 
-### Phase 1 — Foundation (Weekend Sprint) ← YOU ARE HERE
+### Phase 1 — Foundation ✅ COMPLETE (commit 7956373)
 - [x] PRD written
 - [x] Project scaffold created (skeleton code, git initialized)
-- [ ] Supabase project created + pgvector enabled
-- [ ] Run `schema.sql` in Supabase SQL editor
-- [ ] Fill in `.env` with Supabase credentials
-- [ ] Implement FastAPI endpoints (embeddings + pgvector search)
+- [x] Supabase project created + pgvector enabled
+- [x] Run `schema.sql` in Supabase SQL editor
+- [x] Fill in `.env` with Supabase + OpenAI credentials
+- [x] FastAPI endpoints fully implemented (embeddings + pgvector search)
+- [x] All 6 endpoints validated end-to-end (save, search, recent, update, delete, export)
 - [ ] Deploy API to Railway
 - [ ] Build + configure MCP server for Claude
 - [ ] End-to-end test: save from Claude → retrieve from Claude
 
-### Phase 2 — ChatGPT Integration (Week 2)
+### Phase 2 — ChatGPT Integration (Week 2) ← NEXT
 - [ ] Finalize OpenAPI 3.0 spec
 - [ ] Add Action to Neo Coach GPT
 - [ ] Migrate existing Neo Coach knowledge into Second Brain
@@ -138,8 +139,18 @@ SaMedha/
 
 ## Current Status
 
-**Phase 1 — scaffold only.** No real implementation yet.
-Next action: create Supabase free-tier project, enable pgvector extension, run schema.sql.
+**Phase 1 complete.** All API endpoints working and validated locally against live Supabase.
+Next action: deploy API to Railway, then wire MCP server for Claude.
+
+---
+
+## Bugs Fixed (Phase 1)
+
+| Bug | Root Cause | Fix |
+|---|---|---|
+| `POST /memories` returning 307 redirect | FastAPI's default `redirect_slashes=True` drops POST body on redirect | Set `redirect_slashes=False` on FastAPI app; changed route decorator from `"/"` to `""` |
+| Semantic search returning 0 results | `ivfflat` index with `lists=100` only probes 1 cluster — misses all rows when dataset < 100 rows | Replaced `ivfflat` with `hnsw` index which works correctly at any dataset size |
+| supabase-py RPC vector type mismatch | `supabase-py` doesn't auto-serialize Python `list[float]` to pgvector string | Manually serialize embedding as `"[f1,f2,...]"` string before passing to RPC |
 
 ---
 
@@ -150,3 +161,6 @@ Next action: create Supabase free-tier project, enable pgvector extension, run s
 - The MCP server runs locally via stdio — the API key is injected via env, never sent through Claude's servers.
 - Generate `SECOND_BRAIN_API_KEY` locally: `openssl rand -hex 32`
 - The `metadata JSONB` column in the memories table future-proofs the schema — any per-source fields go there without migrations.
+- `SUPABASE_URL` must be the project REST URL (`https://xxx.supabase.co`), NOT the PostgreSQL connection string.
+- Run `uvicorn` from the `api/` directory with `PYTHONPATH=.` so relative imports resolve correctly.
+- Start server: `cd api && PYTHONPATH=. ../.venv/bin/uvicorn main:app --reload`
