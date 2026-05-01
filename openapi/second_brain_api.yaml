@@ -6,7 +6,7 @@ info:
   description: Personal AI Memory Layer — save and retrieve memories across Claude, ChatGPT, and Gemini.
 
 servers:
-  - url: https://your-api-host.railway.app/api/v1
+  - url: https://samedha.onrender.com/api/v1
 
 security:
   - BearerAuth: []
