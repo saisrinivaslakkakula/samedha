@@ -2,7 +2,7 @@ services:
   - type: web
     name: second-brain-api
     runtime: docker
-    dockerfilePath: api/Dockerfile
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /health
     envVars:
       - key: SUPABASE_URL
