@@ -5,6 +5,9 @@ SecondBrain_PRD.docx
 # Claude Code local config
 .claude/
 
+# Local context — never commit
+context.md
+
 # Python
 __pycache__/
 *.pyc
