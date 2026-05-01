@@ -1,0 +1,27 @@
+# Secrets
+.env
+SecondBrain_PRD.docx
+
+# Claude Code local config
+.claude/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+.pytest_cache/
+
+# Node
+node_modules/
+mcp-server/dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

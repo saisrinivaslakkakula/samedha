@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "second-brain": {
+      "command": "node",
+      "args": ["/absolute/path/to/SaMedha/mcp-server/dist/index.js"],
+      "env": {
+        "SECOND_BRAIN_API_URL": "https://your-api-host.railway.app/api/v1",
+        "SECOND_BRAIN_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
