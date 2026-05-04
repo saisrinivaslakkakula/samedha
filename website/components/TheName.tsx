@@ -11,9 +11,12 @@ export default function TheName() {
         Where it comes from.
       </h2>
 
-      {/* Etymology breakdown */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-text-dim/20 rounded-2xl overflow-hidden mb-12 md:mb-16">
-        <div className="bg-bg p-7 md:p-8 flex flex-col gap-3">
+      {/* Equation: Sai + Medha = Samedha */}
+      {/* Mobile: vertical stack. Desktop: horizontal row with operators */}
+      <div className="flex flex-col md:flex-row md:items-stretch gap-3 md:gap-0 mb-12 md:mb-16">
+
+        {/* Sai */}
+        <div className="bg-surface border border-text-dim/20 rounded-2xl md:rounded-r-none md:rounded-l-2xl p-7 md:p-8 flex flex-col gap-3 flex-1">
           <span className="font-serif text-5xl md:text-6xl text-gold font-light tracking-wide">
             Sai
           </span>
@@ -25,7 +28,16 @@ export default function TheName() {
           </p>
         </div>
 
-        <div className="bg-bg p-7 md:p-8 flex flex-col gap-3">
+        {/* + */}
+        <div className="hidden md:flex items-center justify-center px-3 border-y border-text-dim/20 bg-bg">
+          <span className="font-serif text-3xl text-text-dim font-light">+</span>
+        </div>
+        <div className="flex md:hidden items-center justify-center py-1">
+          <span className="font-serif text-2xl text-text-dim font-light">+</span>
+        </div>
+
+        {/* Medha */}
+        <div className="bg-surface border border-text-dim/20 md:border-x-0 rounded-2xl md:rounded-none p-7 md:p-8 flex flex-col gap-3 flex-1">
           <span className="font-serif text-5xl md:text-6xl text-gold font-light tracking-wide">
             Medha
           </span>
@@ -38,7 +50,16 @@ export default function TheName() {
           </p>
         </div>
 
-        <div className="bg-surface p-7 md:p-8 flex flex-col gap-3">
+        {/* = */}
+        <div className="hidden md:flex items-center justify-center px-3 border-y border-text-dim/20 bg-bg">
+          <span className="font-serif text-3xl text-text-dim font-light">=</span>
+        </div>
+        <div className="flex md:hidden items-center justify-center py-1">
+          <span className="font-serif text-2xl text-text-dim font-light">=</span>
+        </div>
+
+        {/* Samedha */}
+        <div className="bg-gold/5 border border-gold/25 rounded-2xl md:rounded-l-none md:rounded-r-2xl p-7 md:p-8 flex flex-col gap-3 flex-1">
           <span className="font-serif text-5xl md:text-6xl text-gold-light font-light tracking-wide">
             Samedha
           </span>
