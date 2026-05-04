@@ -1,11 +1,11 @@
 export default function Footer() {
   return (
-    <footer className="py-20 px-6 max-w-4xl mx-auto">
-      <div className="section-divider mb-16" />
+    <footer className="py-16 md:py-20 px-6 max-w-4xl mx-auto">
+      <div className="section-divider mb-12 md:mb-16" />
 
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="font-serif text-3xl text-text-primary font-light mb-2">
+          <p className="font-serif text-2xl md:text-3xl text-text-primary font-light mb-2">
             Samedha
           </p>
           <p className="font-sans text-text-muted text-sm">
@@ -13,11 +13,9 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className="text-right">
-          <p className="font-sans text-text-dim text-xs">
-            © 2026 Samedha. Built by hand.
-          </p>
-        </div>
+        <p className="font-sans text-text-dim text-xs md:text-right">
+          © 2026 Samedha. Built by hand.
+        </p>
       </div>
     </footer>
   );
