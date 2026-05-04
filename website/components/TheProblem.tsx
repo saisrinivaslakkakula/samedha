@@ -57,7 +57,7 @@ export default function TheProblem() {
           </span>
           <div>
             <h3 className="font-serif text-xl md:text-2xl text-text-primary mb-3">
-              Then the demi-god spoke.
+              Then the man himself spoke.
             </h3>
             <p className="font-sans text-text-muted text-sm md:text-base leading-relaxed">
               Honestly, I'd been sitting with this problem for a while. The
