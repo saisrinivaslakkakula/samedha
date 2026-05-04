@@ -30,10 +30,10 @@ export default function TheName() {
 
         {/* + */}
         <div className="hidden md:flex items-center justify-center px-3 border-y border-text-dim/20 bg-bg">
-          <span className="font-serif text-3xl text-text-dim font-light">+</span>
+          <span className="font-serif text-3xl text-gold font-light">+</span>
         </div>
         <div className="flex md:hidden items-center justify-center py-1">
-          <span className="font-serif text-2xl text-text-dim font-light">+</span>
+          <span className="font-serif text-2xl text-gold font-light">+</span>
         </div>
 
         {/* Medha */}
@@ -52,10 +52,10 @@ export default function TheName() {
 
         {/* = */}
         <div className="hidden md:flex items-center justify-center px-3 border-y border-text-dim/20 bg-bg">
-          <span className="font-serif text-3xl text-text-dim font-light">=</span>
+          <span className="font-serif text-3xl text-gold-light font-light">=</span>
         </div>
         <div className="flex md:hidden items-center justify-center py-1">
-          <span className="font-serif text-2xl text-text-dim font-light">=</span>
+          <span className="font-serif text-2xl text-gold-light font-light">=</span>
         </div>
 
         {/* Samedha */}
