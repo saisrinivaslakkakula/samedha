@@ -4,19 +4,19 @@ const tools = ["ChatGPT", "Claude", "Gemini"];
 
 export default function WhatIsBuilt() {
   return (
-    <SectionWrapper id="built" className="py-24 px-6 max-w-4xl mx-auto">
-      <div className="section-divider mb-24" />
+    <SectionWrapper id="built" className="py-12 px-6 max-w-4xl mx-auto">
+      <div className="section-divider mb-12" />
 
       <p className="font-sans text-gold text-xs tracking-[0.3em] uppercase mb-6">
         What's Built
       </p>
 
-      <h2 className="font-serif text-[clamp(2.2rem,6vw,5rem)] font-light text-text-primary leading-tight mb-12 md:mb-16">
+      <h2 className="font-serif text-[clamp(2.2rem,6vw,5rem)] font-light text-text-primary leading-tight mb-6 md:mb-8">
         One memory. Every tool.
       </h2>
 
       {/* Flow diagram — tools converge into Samedha → Your Memory */}
-      <div className="flex items-center justify-center gap-0 mb-12 md:mb-16">
+      <div className="flex items-center justify-center gap-0 mb-6 md:mb-8">
 
         {/* Left column: three tools stacked */}
         <div className="flex flex-col gap-3 md:gap-4">
@@ -71,14 +71,14 @@ export default function WhatIsBuilt() {
         </div>
       </div>
 
-      <p className="font-sans text-text-muted leading-relaxed max-w-2xl mb-6 text-sm md:text-base">
+      <p className="font-sans text-text-muted leading-relaxed max-w-2xl mb-4 text-sm md:text-base">
         Samedha is a personal memory API. Any AI tool can save to it and
         retrieve from it. Your knowledge lives in one place. It is searchable
         by meaning, not just keyword. And it is yours — self-hosted, private,
         exportable at any time.
       </p>
 
-      <p className="font-sans text-text-muted leading-relaxed max-w-2xl mb-12 md:mb-16 text-sm md:text-base">
+      <p className="font-sans text-text-muted leading-relaxed max-w-2xl mb-8 text-sm md:text-base">
         A conversation in Claude about a career decision. Retrieved in ChatGPT
         six weeks later without re-explaining. That is what this does.
       </p>

@@ -2,18 +2,18 @@ import SectionWrapper from "./SectionWrapper";
 
 export default function TheProblem() {
   return (
-    <SectionWrapper id="idea" className="py-24 px-6 max-w-4xl mx-auto">
-      <div className="section-divider mb-24" />
+    <SectionWrapper id="idea" className="py-12 px-6 max-w-4xl mx-auto">
+      <div className="section-divider mb-12" />
 
       <p className="font-sans text-gold text-xs tracking-[0.3em] uppercase mb-6">
         The Idea
       </p>
 
-      <h2 className="font-serif text-[clamp(2.2rem,6vw,5rem)] font-light text-text-primary leading-tight mb-12 md:mb-16">
+      <h2 className="font-serif text-[clamp(2.2rem,6vw,5rem)] font-light text-text-primary leading-tight mb-6 md:mb-8">
         The problem no one talks about.
       </h2>
 
-      <div className="space-y-12 md:space-y-16 max-w-2xl">
+      <div className="space-y-8 md:space-y-10 max-w-2xl">
         {/* Beat 1 */}
         <div className="flex gap-5 md:gap-6">
           <span className="font-serif text-4xl md:text-5xl text-text-dim font-light leading-none mt-1 shrink-0">

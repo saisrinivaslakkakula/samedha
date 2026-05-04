@@ -2,18 +2,18 @@ import SectionWrapper from "./SectionWrapper";
 
 export default function TheName() {
   return (
-    <SectionWrapper id="name" className="py-24 px-6 max-w-4xl mx-auto">
+    <SectionWrapper id="name" className="py-12 px-6 max-w-4xl mx-auto">
       <p className="font-sans text-gold text-xs tracking-[0.3em] uppercase mb-6">
         The Name
       </p>
 
-      <h2 className="font-serif text-[clamp(2.2rem,6vw,5rem)] font-light text-text-primary leading-tight mb-12 md:mb-16">
+      <h2 className="font-serif text-[clamp(2.2rem,6vw,5rem)] font-light text-text-primary leading-tight mb-6 md:mb-8">
         Where it comes from.
       </h2>
 
       {/* Equation: Sai + Medha = Samedha */}
       {/* Mobile: vertical stack. Desktop: horizontal row with operators */}
-      <div className="flex flex-col md:flex-row md:items-stretch gap-3 md:gap-0 mb-12 md:mb-16">
+      <div className="flex flex-col md:flex-row md:items-stretch gap-3 md:gap-0 mb-6 md:mb-8">
 
         {/* Sai */}
         <div className="bg-surface border border-text-dim/20 rounded-2xl md:rounded-r-none md:rounded-l-2xl p-7 md:p-8 flex flex-col gap-3 flex-1">

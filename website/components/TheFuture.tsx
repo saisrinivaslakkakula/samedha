@@ -2,14 +2,14 @@ import SectionWrapper from "./SectionWrapper";
 
 export default function TheFuture() {
   return (
-    <SectionWrapper id="future" className="py-24 px-6 max-w-4xl mx-auto">
-      <div className="section-divider mb-24" />
+    <SectionWrapper id="future" className="py-12 px-6 max-w-4xl mx-auto">
+      <div className="section-divider mb-12" />
 
       <p className="font-sans text-gold text-xs tracking-[0.3em] uppercase mb-6">
         The Future
       </p>
 
-      <h2 className="font-serif text-[clamp(2.2rem,6vw,5rem)] font-light text-text-primary leading-tight mb-12 md:mb-16">
+      <h2 className="font-serif text-[clamp(2.2rem,6vw,5rem)] font-light text-text-primary leading-tight mb-6 md:mb-8">
         Where this goes.
       </h2>
 
