@@ -64,7 +64,7 @@ export default function TheName() {
             Samedha
           </span>
           <span className="font-sans text-text-muted text-xs tracking-widest uppercase">
-            The combination
+            Sama + Medha
           </span>
           <p className="font-sans text-text-muted text-sm leading-relaxed">
             A name that is both personal and exact — meaning
@@ -74,11 +74,12 @@ export default function TheName() {
       </div>
 
       <p className="font-serif text-lg md:text-xl text-text-muted leading-relaxed max-w-2xl italic">
-        "The happy accident was that the name I chose for a personal project
-        turned out to be the most precise description of it. In Sanskrit,{" "}
-        <em className="text-text-primary not-italic">medha</em> is not just
-        memory — it is the capacity to learn, retain, and synthesise. That is
-        exactly what this is."
+        "Samedha is a real Sanskrit compound —{" "}
+        <em className="text-text-primary not-italic">sama</em>, meaning balanced
+        and complete, and{" "}
+        <em className="text-text-primary not-italic">medha</em>, the faculty of
+        memory and thought. Balanced intelligence. It already meant the thing
+        before the project existed."
       </p>
     </SectionWrapper>
   );
