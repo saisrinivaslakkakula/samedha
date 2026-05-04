@@ -28,3 +28,8 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Website build artifacts
+website/node_modules/
+website/.next/
+website/out/
