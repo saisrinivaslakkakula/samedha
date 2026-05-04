@@ -57,17 +57,21 @@ export default function TheProblem() {
           </span>
           <div>
             <h3 className="font-serif text-xl md:text-2xl text-text-primary mb-3">
-              The signal.
+              Then the demi-god spoke.
             </h3>
             <p className="font-sans text-text-muted text-sm md:text-base leading-relaxed">
-              Andrej Karpathy — co-founder of OpenAI, the person who built the
-              neural net curriculum half the industry learned from — wrote about
-              the idea of a second brain. A personal knowledge layer that
-              persists. That knows you. That sits underneath all the tools and
-              holds the thread.
+              Honestly, I'd been sitting with this problem for a while. The
+              scattered context, the tool-switching, the starting over — it
+              bothered me, but not enough to act. Then Andrej Karpathy did what
+              he always does: took something I'd been vaguely feeling and
+              structured it so clearly I had no excuse left.
             </p>
             <p className="font-sans text-text-muted text-sm md:text-base leading-relaxed mt-4">
-              That idea sat with me. And I built it.
+              He wrote about the idea of a personal second brain — a knowledge
+              layer that persists underneath all the tools, that actually knows
+              you. The man co-founded OpenAI and somehow still finds time to
+              crystallise the exact thought you needed. That was the push.
+              I stopped thinking about it and built it.
             </p>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import SectionWrapper from "./SectionWrapper";
 
-const tools = ["Claude", "ChatGPT", "Gemini"];
+const tools = ["ChatGPT", "Claude", "Gemini"];
 
 export default function WhatIsBuilt() {
   return (
@@ -15,55 +15,70 @@ export default function WhatIsBuilt() {
         One memory. Every tool.
       </h2>
 
-      {/* Visual — mobile: vertical stack, desktop: horizontal flow */}
-      <div className="mb-12 md:mb-16">
-        {/* Mobile layout */}
-        <div className="flex flex-col items-center gap-2 md:hidden">
+      {/* Flow diagram — tools converge into Samedha → Your Memory */}
+      <div className="flex items-center justify-center gap-0 mb-12 md:mb-16">
+
+        {/* Left column: three tools stacked */}
+        <div className="flex flex-col gap-3 md:gap-4">
           {tools.map((tool) => (
-            <div key={tool} className="flex flex-col items-center gap-2">
-              <div className="border border-text-dim/30 rounded-xl px-6 py-3 font-sans text-sm text-text-muted w-40 text-center">
-                {tool}
-              </div>
-              <div className="w-px h-5 bg-gradient-to-b from-text-dim/40 to-gold/40" />
+            <div
+              key={tool}
+              className="border border-text-dim/30 rounded-xl px-5 md:px-6 py-2.5 md:py-3 font-sans text-sm text-text-muted text-center min-w-[96px] md:min-w-[108px]"
+            >
+              {tool}
             </div>
           ))}
-          <div className="border border-gold/40 bg-gold/5 rounded-xl px-8 py-4 font-serif text-2xl text-gold text-center w-44">
-            Samedha
-          </div>
-          <div className="w-px h-5 bg-gradient-to-b from-gold/60 to-teal/60" />
-          <div className="border border-teal/30 bg-teal/5 rounded-xl px-6 py-3 font-sans text-sm text-teal w-40 text-center">
-            Your Memory
-          </div>
         </div>
 
-        {/* Desktop layout */}
-        <div className="hidden md:flex items-center justify-center gap-6">
+        {/* Converging arrows */}
+        <div className="flex flex-col gap-3 md:gap-4 mx-1 md:mx-2">
           {tools.map((tool) => (
-            <div key={tool} className="flex items-center gap-6">
-              <div className="border border-text-dim/30 rounded-xl px-5 py-3 font-sans text-sm text-text-muted">
-                {tool}
-              </div>
-              <div className="w-8 h-px bg-gradient-to-r from-text-dim/40 to-gold/60" />
+            <div key={tool} className="flex items-center h-[38px] md:h-[42px]">
+              <svg
+                width="40"
+                height="2"
+                viewBox="0 0 40 2"
+                className="text-text-dim/50"
+              >
+                <line x1="0" y1="1" x2="34" y2="1" stroke="currentColor" strokeWidth="1" />
+                <polygon points="34,0 40,1 34,2" fill="currentColor" />
+              </svg>
             </div>
           ))}
-          <div className="border border-gold/40 bg-gold/5 rounded-xl px-6 py-4 font-serif text-xl text-gold">
-            Samedha
-          </div>
-          <div className="w-8 h-px bg-gradient-to-r from-gold/60 to-teal/60" />
-          <div className="border border-teal/30 bg-teal/5 rounded-xl px-5 py-3 font-sans text-sm text-teal">
-            Your Memory
-          </div>
+        </div>
+
+        {/* Samedha node */}
+        <div className="border border-gold/50 bg-gold/5 rounded-xl px-5 md:px-7 py-4 md:py-5 font-serif text-lg md:text-xl text-gold text-center self-center">
+          Samedha
+        </div>
+
+        {/* Arrow to Your Memory */}
+        <div className="flex items-center mx-1 md:mx-2">
+          <svg
+            width="40"
+            height="2"
+            viewBox="0 0 40 2"
+            className="text-gold/50"
+          >
+            <line x1="0" y1="1" x2="34" y2="1" stroke="currentColor" strokeWidth="1" />
+            <polygon points="34,0 40,1 34,2" fill="currentColor" />
+          </svg>
+        </div>
+
+        {/* Your Memory node */}
+        <div className="border border-teal/30 bg-teal/5 rounded-xl px-4 md:px-6 py-2.5 md:py-3 font-sans text-sm text-teal text-center self-center">
+          Your Memory
         </div>
       </div>
 
-      <p className="font-sans text-text-muted leading-relaxed max-w-2xl mb-6">
+      <p className="font-sans text-text-muted leading-relaxed max-w-2xl mb-6 text-sm md:text-base">
         Samedha is a personal memory API. Any AI tool can save to it and
         retrieve from it. Your knowledge lives in one place. It is searchable
         by meaning, not just keyword. And it is yours — self-hosted, private,
         exportable at any time.
       </p>
 
-      <p className="font-sans text-text-muted leading-relaxed max-w-2xl mb-12 md:mb-16">
+      <p className="font-sans text-text-muted leading-relaxed max-w-2xl mb-12 md:mb-16 text-sm md:text-base">
         A conversation in Claude about a career decision. Retrieved in ChatGPT
         six weeks later without re-explaining. That is what this does.
       </p>
