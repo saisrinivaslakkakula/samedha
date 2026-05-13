@@ -12,6 +12,5 @@ jobs:
       - name: Ping API
         run: curl -sf https://samedha.onrender.com/health
 
-      # Uncomment once website is deployed to Render:
-      # - name: Ping Website
-      #   run: curl -sf https://samedha-website.onrender.com
+      - name: Ping Website
+        run: curl -sf https://samedha-app.onrender.com
