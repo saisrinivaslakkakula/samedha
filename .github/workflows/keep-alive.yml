@@ -1,0 +1,16 @@
+name: Keep Render services alive
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"  # every 10 minutes
+  workflow_dispatch:          # manual trigger from GitHub Actions UI
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping API
+        run: curl -sf https://samedha.onrender.com/health
+
+      - name: Ping Website
+        run: curl -sf https://samedha-website.onrender.com  # update once website is deployed
