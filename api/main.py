@@ -5,7 +5,7 @@ load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env'))
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 from routers import memories
 from mcp_server import mcp
 
@@ -39,9 +39,20 @@ app.add_middleware(
 # Accepts either:
 #   Authorization: Bearer <key>   (Claude Code CLI / MCP clients)
 #   ?key=<key>                    (claude.ai browser connector — no custom header support)
+# OPTIONS preflight must be allowed through without auth — browsers send preflight
+# without credentials and need CORS headers back before making the real request.
+CORS_HEADERS = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, DELETE",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, Mcp-Session-Id, Accept",
+    "Access-Control-Max-Age": "86400",
+}
+
 @app.middleware("http")
 async def mcp_auth(request: Request, call_next):
     if request.url.path.startswith("/mcp"):
+        if request.method == "OPTIONS":
+            return Response(status_code=200, headers=CORS_HEADERS)
         expected = os.getenv("SECOND_BRAIN_API_KEY", "")
         bearer = request.headers.get("Authorization", "").removeprefix("Bearer ").strip()
         query_key = request.query_params.get("key", "")
