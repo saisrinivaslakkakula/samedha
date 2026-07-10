@@ -1,9 +1,10 @@
 import json
+import psycopg2.extras
 from typing import Optional
 from mcp.server.fastmcp import FastMCP
 from services.embeddings import generate_embedding
 from services.search import semantic_search, get_recent
-from db.supabase import get_client
+from db.neon import get_conn, to_dict, vec_str
 
 # host="0.0.0.0" disables FastMCP's localhost-only DNS rebinding protection,
 # which would otherwise reject requests from samedha.onrender.com with HTTP 421.
@@ -27,21 +28,15 @@ async def save_memory(
     importance: 1 (low) to 5 (critical)
     """
     vector = await generate_embedding(content)
-    client = get_client()
-    row = {
-        "content": content,
-        "summary": summary,
-        "embedding": vector,
-        "source": source,
-        "domain": domain,
-        "tags": tags or [],
-        "importance": importance,
-        "session_id": session_id,
-    }
-    result = client.table("memories").insert(row).execute()
-    if not result.data:
-        return "Error: Failed to save memory"
-    saved = result.data[0]
+    with get_conn() as conn:
+        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+            cur.execute(
+                """INSERT INTO memories (content, summary, embedding, source, domain, tags, importance, session_id)
+                   VALUES (%s, %s, %s::vector, %s, %s, %s, %s, %s)
+                   RETURNING id, created_at""",
+                (content, summary, vec_str(vector), source, domain, tags or [], importance, session_id),
+            )
+            saved = to_dict(cur.fetchone())
     return f"Saved memory {saved['id']} at {saved['created_at']}"
 
 
@@ -83,7 +78,6 @@ async def update_memory(
     summary: Optional[str] = None,
 ) -> str:
     """Update an existing memory by ID — refine content, tags, importance, or domain."""
-    client = get_client()
     updates: dict = {}
     if content is not None:
         updates["content"] = content
@@ -98,8 +92,25 @@ async def update_memory(
         updates["summary"] = summary
     if not updates:
         return "No fields to update."
-    result = client.table("memories").update(updates).eq("id", id).execute()
-    if not result.data:
+
+    set_parts, values = [], []
+    for key, val in updates.items():
+        if key == "embedding":
+            set_parts.append("embedding = %s::vector")
+            values.append(vec_str(val))
+        else:
+            set_parts.append(f"{key} = %s")
+            values.append(val)
+    values.append(id)
+
+    with get_conn() as conn:
+        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+            cur.execute(
+                f"UPDATE memories SET {', '.join(set_parts)} WHERE id = %s::uuid RETURNING id",
+                values,
+            )
+            row = cur.fetchone()
+    if not row:
         return f"Memory {id} not found"
     return f"Updated memory {id}"
 
@@ -107,8 +118,10 @@ async def update_memory(
 @mcp.tool()
 async def delete_memory(id: str) -> str:
     """Permanently delete a memory by ID."""
-    client = get_client()
-    result = client.table("memories").delete().eq("id", id).execute()
-    if not result.data:
+    with get_conn() as conn:
+        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+            cur.execute("DELETE FROM memories WHERE id = %s::uuid RETURNING id", (id,))
+            row = cur.fetchone()
+    if not row:
         return f"Memory {id} not found"
     return f"Deleted memory {id}"

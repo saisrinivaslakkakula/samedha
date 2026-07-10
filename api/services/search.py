@@ -1,4 +1,5 @@
-from db.supabase import get_client
+import psycopg2.extras
+from db.neon import get_conn, to_dict, vec_str
 from services.embeddings import generate_embedding
 
 
@@ -10,19 +11,13 @@ async def semantic_search(
     min_importance: int | None = None,
 ) -> list[dict]:
     embedding = await generate_embedding(query)
-    client = get_client()
-    # pgvector requires the vector as a bracketed string e.g. "[0.1, 0.2, ...]"
-    # supabase-py does not auto-serialize Python lists to the vector type
-    embedding_str = "[" + ",".join(str(x) for x in embedding) + "]"
-    params: dict = {"query_embedding": embedding_str, "match_count": limit}
-    if domain:
-        params["filter_domain"] = domain
-    if source:
-        params["filter_source"] = source
-    if min_importance:
-        params["filter_min_importance"] = min_importance
-    result = client.rpc("match_memories", params).execute()
-    return result.data or []
+    with get_conn() as conn:
+        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+            cur.execute(
+                "SELECT * FROM match_memories(%s::vector, %s, %s, %s, %s)",
+                (vec_str(embedding), limit, domain, source, min_importance),
+            )
+            return [to_dict(r) for r in cur.fetchall()]
 
 
 async def get_recent(
@@ -30,11 +25,21 @@ async def get_recent(
     domain: str | None = None,
     source: str | None = None,
 ) -> list[dict]:
-    client = get_client()
-    query = client.table("memories").select("*").order("created_at", desc=True).limit(limit)
+    conditions, params = [], []
     if domain:
-        query = query.eq("domain", domain)
+        conditions.append("domain = %s")
+        params.append(domain)
     if source:
-        query = query.eq("source", source)
-    result = query.execute()
-    return result.data or []
+        conditions.append("source = %s")
+        params.append(source)
+    where = ("WHERE " + " AND ".join(conditions)) if conditions else ""
+    params.append(limit)
+    sql = (
+        "SELECT id, content, summary, source, domain, tags, importance, "
+        f"created_at, updated_at, session_id, metadata FROM memories "
+        f"{where} ORDER BY created_at DESC LIMIT %s"
+    )
+    with get_conn() as conn:
+        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+            cur.execute(sql, params)
+            return [to_dict(r) for r in cur.fetchall()]
