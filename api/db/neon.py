@@ -25,11 +25,15 @@ class _Conn:
         return self._conn
 
     def __exit__(self, exc_type, *_):
-        if exc_type:
-            self._conn.rollback()
-        else:
-            self._conn.commit()
-        _get_pool().putconn(self._conn)
+        broken = False
+        try:
+            if exc_type:
+                self._conn.rollback()
+            else:
+                self._conn.commit()
+        except Exception:
+            broken = True
+        _get_pool().putconn(self._conn, close=broken)
 
 
 def get_conn() -> _Conn:

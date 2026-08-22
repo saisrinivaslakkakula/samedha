@@ -1,12 +1,12 @@
 openapi: "3.0.0"
 
 info:
-  title: Second Brain API
+  title: Samedha
   version: "1.0.0"
   description: Personal AI Memory Layer — save and retrieve memories across Claude, ChatGPT, and Gemini.
 
 servers:
-  - url: https://samedha.onrender.com/api/v1
+  - url: https://api.saisrinivasl.me/api/v1
 
 security:
   - BearerAuth: []
@@ -202,50 +202,6 @@ paths:
             text/plain:
               schema:
                 type: string
-
-  /memories/recent:
-    get:
-      operationId: get_recent_memories_json
-      summary: Recent memories (JSON)
-      description: Returns the most recent N memories as JSON. Use /memories/context for ChatGPT Actions to avoid payload size limits.
-      parameters:
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            default: 10
-        - name: domain
-          in: query
-          schema:
-            type: string
-        - name: source
-          in: query
-          schema:
-            type: string
-      responses:
-        "200":
-          description: List of recent memories.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/MemoryResponse"
-
-  /memories/export:
-    get:
-      operationId: export_memories
-      summary: Export all memories
-      description: Exports all memories as a JSON array (no embeddings).
-      responses:
-        "200":
-          description: JSON file download of all memories.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/MemoryResponse"
 
   /memories/{id}:
     patch:

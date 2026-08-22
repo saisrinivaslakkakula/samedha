@@ -66,4 +66,11 @@ app.mount("/mcp", _mcp_http_app)
 
 @app.get("/health")
 def health():
+    try:
+        from db.neon import get_conn
+        with get_conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT 1")
+    except Exception as e:
+        return {"status": "error", "db": str(e)}
     return {"status": "ok"}
